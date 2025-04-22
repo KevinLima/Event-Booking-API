@@ -6,5 +6,6 @@ namespace Lima.EventBooking.Infrastructure.Repositories
     {
         Event GetById(Guid id);
         void Save(Event eventBooking);
+        IEnumerable<Event> GetAll();
         }
     }

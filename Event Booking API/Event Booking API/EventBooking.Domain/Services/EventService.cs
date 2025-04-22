@@ -19,5 +19,21 @@ namespace Lima.EventBooking.Domain.Services
             eventBooking.AddAttendee(attendee);
             _eventRepository.Save(eventBooking);
         }
+
+        public Event GetEventById(Guid eventId)
+        {
+            return _eventRepository.GetById(eventId);
+        }
+
+        public void CreateEvent(Event eventBooking)
+        {
+            eventBooking.Id = Guid.NewGuid();
+            _eventRepository.Save(eventBooking);
+        }
+
+        public IEnumerable<Event> GetAllEvents() 
+        {
+            return _eventRepository.GetAll();
+        }
     }
 }
