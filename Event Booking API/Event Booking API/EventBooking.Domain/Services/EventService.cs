@@ -1,8 +1,8 @@
 ﻿using System;
-using Event_Booking_API.EventBooking.Domain.Entities;
-using Event_Booking_API.EventBooking.Infrastructure.Repositories;
+using Lima.EventBooking.Domain.Entities;
+using Lima.EventBooking.Infrastructure.Repositories;
 
-namespace Event_Booking_API.EventBooking.Domain.Services
+namespace Lima.EventBooking.Domain.Services
 {
     public class EventService
     {

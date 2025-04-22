@@ -1,7 +1,7 @@
-using Event_Booking_API.EventBooking.API.Models;
+using Lima.EventBooking.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Event_Booking_API.EventBooking.API.Controllers
+namespace Lima.EventBooking.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]

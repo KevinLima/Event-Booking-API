@@ -1,4 +1,4 @@
-﻿using Event_Booking_API.EventBooking.Domain.Entities;
+﻿using Lima.EventBooking.Domain.Entities;
 
 public class EventAggregate
 {

@@ -1,4 +1,4 @@
-﻿namespace Event_Booking_API.EventBooking.Domain.ValueObjects
+﻿namespace Lima.EventBooking.Domain.ValueObjects
 {
     public class TicketType
     {

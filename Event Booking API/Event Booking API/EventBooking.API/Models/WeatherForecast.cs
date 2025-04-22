@@ -1,4 +1,4 @@
-namespace Event_Booking_API.EventBooking.API.Models
+namespace Lima.EventBooking.API.Models
 {
     public class WeatherForecast
     {

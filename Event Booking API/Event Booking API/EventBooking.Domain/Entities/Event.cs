@@ -1,6 +1,6 @@
-﻿using Event_Booking_API.EventBooking.Domain.ValueObjects;
+﻿using Lima.EventBooking.Domain.ValueObjects;
 
-namespace Event_Booking_API.EventBooking.Domain.Entities
+namespace Lima.EventBooking.Domain.Entities
 {
     public class Event
     {
