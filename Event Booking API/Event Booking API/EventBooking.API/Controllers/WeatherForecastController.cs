@@ -1,6 +1,7 @@
+using Event_Booking_API.EventBooking.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Event_Booking_API.Controllers
+namespace Event_Booking_API.EventBooking.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
