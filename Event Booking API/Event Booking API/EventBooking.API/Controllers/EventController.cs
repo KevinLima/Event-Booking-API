@@ -84,6 +84,7 @@ namespace Lima.EventBooking.API.Controllers
         public IActionResult GetAllEvents()
         {
             var events = _eventService.GetAllEvents();
+            Console.WriteLine("Number of events retrieved: " + events.Count());
 
             var eventDTOs = events.Select(e => new EventDTO
             {

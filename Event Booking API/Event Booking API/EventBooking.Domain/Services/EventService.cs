@@ -4,6 +4,7 @@ using Lima.EventBooking.Infrastructure.Repositories;
 
 namespace Lima.EventBooking.Domain.Services
 {
+
     public class EventService
     {
         private readonly IEventRepository _eventRepository;
@@ -22,18 +23,23 @@ namespace Lima.EventBooking.Domain.Services
 
         public Event GetEventById(Guid eventId)
         {
-            return _eventRepository.GetById(eventId);
+            var eventBooking = _eventRepository.GetById(eventId);
+            Console.WriteLine("GetEventById called for ID: " + eventId);
+            return eventBooking;
         }
 
         public void CreateEvent(Event eventBooking)
         {
             eventBooking.Id = Guid.NewGuid();
             _eventRepository.Save(eventBooking);
+            Console.WriteLine("CreateEvent called for event: " + eventBooking.Id);
         }
 
-        public IEnumerable<Event> GetAllEvents() 
+        public IEnumerable<Event> GetAllEvents()
         {
-            return _eventRepository.GetAll();
+            var events = _eventRepository.GetAll();
+            Console.WriteLine("GetAllEvents called. Number of events: " + events.Count());
+            return events;
         }
     }
 }

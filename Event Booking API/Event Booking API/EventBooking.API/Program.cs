@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Register your repositories and services
-builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddSingleton<IEventRepository, EventRepository>();
 builder.Services.AddScoped<EventService>();
 
 var app = builder.Build();
@@ -46,6 +46,7 @@ using (var scope = app.Services.CreateScope())
         }
     };
     eventService.CreateEvent(dummyEvent);
+    Console.WriteLine("Dummy event created: " + dummyEvent.Id);
 }
 
 app.Run();
