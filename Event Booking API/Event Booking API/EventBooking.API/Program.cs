@@ -1,5 +1,7 @@
 using Lima.EventBooking.Domain.Services;
 using Lima.EventBooking.Infrastructure.Repositories;
+using Lima.EventBooking.Domain.Entities;
+using Lima.EventBooking.Domain.ValueObjects;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,5 +28,24 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Initialize scope
+using (var scope = app.Services.CreateScope())
+{
+    var eventService = scope.ServiceProvider.GetRequiredService<EventService>();
+    var dummyEvent = new Event
+    {
+        Id = Guid.NewGuid(),
+        Name = "Sample Event",
+        Date = new EventDate(DateTime.Now.AddDays(10)),
+        Venue = new Venue { Name = "Sample Venue", Location = "Sample Location" },
+        Attendees = new List<Attendee>
+        {
+            new Attendee { Id = Guid.NewGuid(), Name = "John Doe", Ticket = new TicketType("VIP") },
+            new Attendee { Id = Guid.NewGuid(), Name = "Jane Smith", Ticket = new TicketType("Regular") }
+        }
+    };
+    eventService.CreateEvent(dummyEvent);
+}
 
 app.Run();

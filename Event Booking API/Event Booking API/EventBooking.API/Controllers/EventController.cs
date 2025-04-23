@@ -2,6 +2,8 @@
 using Lima.EventBooking.Domain.Entities;
 using Lima.EventBooking.Domain.Services;
 using System;
+using Lima.EventBooking.API.DTOs;
+using Lima.EventBooking.Domain.ValueObjects;
 
 namespace Lima.EventBooking.API.Controllers
 {
@@ -42,14 +44,34 @@ namespace Lima.EventBooking.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateEvent([FromBody] Event eventBooking)
+        public IActionResult CreateEvent([FromBody] EventDTO eventDto)
         {
             try
             {
-                _eventService.CreateEvent(eventBooking);
-                return Ok(new
+                var eventBooking = new Event
                 {
-                    message = "Event created successfully",
+                    Id = Guid.NewGuid(),
+                    Name = eventDto.Name,
+                    Date = new EventDate(eventDto.Date),
+                    Venue = new Venue
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = eventDto.Venue.Name,
+                        Location = eventDto.Venue.Location,
+                    },
+                    Attendees = eventDto.Attendees.Select(
+                        a => new Attendee
+                        {
+                            Id = a.Id,
+                            Name = a.Name,
+                            Ticket = new TicketType(
+                                a.TicketType)
+                        }).ToList()
+                };
+
+                _eventService.CreateEvent(eventBooking);
+                return Ok(new { 
+                    message = "Event created successfully", 
                     eventId = eventBooking.Id
                 });
             }
@@ -62,7 +84,26 @@ namespace Lima.EventBooking.API.Controllers
         public IActionResult GetAllEvents()
         {
             var events = _eventService.GetAllEvents();
-            return Ok(events);
+
+            var eventDTOs = events.Select(e => new EventDTO
+            {
+                Id = e.Id,
+                Name = e.Name,
+                Date = e.Date.Date,
+                Venue = new VenueDTO
+                {
+                    Name = e.Venue.Name,
+                    Location = e.Venue.Location,
+                },
+                Attendees = e.Attendees.Select(a => new AttendeeDTO
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    TicketType = a.Ticket.Type
+                }).ToList()
+            }).ToList();
+
+            return Ok(eventDTOs);
         }
     }
 }
