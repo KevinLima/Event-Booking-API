@@ -38,8 +38,7 @@ namespace Lima.EventBooking.API.Services
 
         public IEnumerable<Event> GetAllEvents()
         {
-            var events = _eventRepository.GetAll();
-            return events;
+           return _eventRepository.GetAll();
         }
     }
 }

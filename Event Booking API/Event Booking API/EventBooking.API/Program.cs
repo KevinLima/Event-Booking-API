@@ -2,6 +2,8 @@ using Lima.EventBooking.Infrastructure.Repositories;
 using Lima.EventBooking.Domain.Entities;
 using Lima.EventBooking.Domain.ValueObjects;
 using Lima.EventBooking.API.Services;
+using Event_Booking_API.EventBooking.Infrastructure.Repositories;
+using Event_Booking_API.EventBooking.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +15,11 @@ builder.Services.AddSwaggerGen();
 // Register your repositories and services
 builder.Services.AddSingleton<IEventRepository, EventRepository>();
 builder.Services.AddSingleton<IVenueRepository, VenueRepository>();
+builder.Services.AddSingleton<IAttendeeRepository, AttendeeRepository>();
+
 builder.Services.AddScoped<EventService>();
 builder.Services.AddScoped<VenueService>();
+builder.Services.AddScoped<AttendeeService>();
 
 var app = builder.Build();
 
@@ -36,11 +41,26 @@ using (var scope = app.Services.CreateScope())
 {
     var eventService = scope.ServiceProvider.GetRequiredService<EventService>();
     var venueService = scope.ServiceProvider.GetRequiredService<VenueService>();
+    var attendeeService = scope.ServiceProvider.GetRequiredService<AttendeeService>();
 
     var dummyVenue = new Venue
     {
         Name = "Grote zaal",
         Location = "Capgemini HQ"
+    };
+
+    var dummyAttendee = new Attendee
+    {
+        Id = Guid.NewGuid(),
+        Name = "John Doe",
+        Ticket = new TicketType("VIP")
+    };
+
+    var dummyAttendee2 = new Attendee
+    {
+        Id = Guid.NewGuid(),
+        Name = "Jane Smith",
+        Ticket = new TicketType("Regular")
     };
 
     var dummyEvent = new Event
@@ -51,15 +71,15 @@ using (var scope = app.Services.CreateScope())
         Venue = dummyVenue,
         Attendees = new List<Attendee>
         {
-            new Attendee { Id = Guid.NewGuid(), Name = "John Doe", 
-                Ticket = new TicketType("VIP") },
-            new Attendee { Id = Guid.NewGuid(), Name = "Jane Smith", 
-                Ticket = new TicketType("Regular") }
+            dummyAttendee,
+            dummyAttendee2
         }
     };
 
     venueService.CreateVenue(dummyVenue);
     eventService.CreateEvent(dummyEvent);
+    attendeeService.CreateAttendee(dummyAttendee);
+    attendeeService.CreateAttendee(dummyAttendee2); 
 }
 
 app.Run();
