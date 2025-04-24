@@ -12,9 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EventBooking.API\Models\" />
-    <Folder Include="EventBooking.Application\DTOs\" />
-    <Folder Include="EventBooking.Application\Services\" />
     <Folder Include="EventBooking.Domain\Interfaces\" />
     <Folder Include="EventBooking.Infrastructure\Data\" />
     <Folder Include="EventBooking.Infrastructure\Migrations\" />

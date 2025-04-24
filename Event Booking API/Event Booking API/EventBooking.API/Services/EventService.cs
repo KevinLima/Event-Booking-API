@@ -2,7 +2,7 @@
 using Lima.EventBooking.Domain.Entities;
 using Lima.EventBooking.Infrastructure.Repositories;
 
-namespace Lima.EventBooking.Domain.Services
+namespace Lima.EventBooking.API.Services
 {
 
     public class EventService

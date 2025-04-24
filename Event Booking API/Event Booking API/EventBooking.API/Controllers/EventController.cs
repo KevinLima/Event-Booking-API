@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Lima.EventBooking.Domain.Entities;
-using Lima.EventBooking.Domain.Services;
 using System;
 using Lima.EventBooking.API.DTOs;
 using Lima.EventBooking.Domain.ValueObjects;
+using Lima.EventBooking.API.Services;
 
 namespace Lima.EventBooking.API.Controllers
 {
