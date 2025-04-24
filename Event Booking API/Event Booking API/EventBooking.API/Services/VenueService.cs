@@ -1,5 +1,6 @@
 ﻿using Lima.EventBooking.Infrastructure.Repositories;
 using Lima.EventBooking.Domain.Entities;
+using Lima.EventBooking.Domain.Aggregates;
 
 namespace Lima.EventBooking.API.Services
 {
@@ -14,7 +15,9 @@ namespace Lima.EventBooking.API.Services
 
         public void CreateVenue(Venue venue)
         {
-            _venueRepository.Save(venue);
+            venue.Id = Guid.NewGuid();
+            var venueAggregate = new VenueAggregate(venue);
+            _venueRepository.Save(venueAggregate.Venue);
         }
 
         public IEnumerable<Venue> GetAllVenues() 
@@ -22,9 +25,9 @@ namespace Lima.EventBooking.API.Services
             return _venueRepository.GetAll();
         }
 
-        public Venue GetVenueByName(string name)
+        public Venue GetVenueById(Guid id)
         {
-           return _venueRepository.GetByName(name);
+           return _venueRepository.GetById(id);
         }
     }
 }

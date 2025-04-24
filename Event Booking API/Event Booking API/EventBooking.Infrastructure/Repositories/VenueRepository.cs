@@ -5,17 +5,18 @@ namespace Lima.EventBooking.Infrastructure.Repositories
 {
     public class VenueRepository: IVenueRepository
     {
-        private readonly Dictionary<string, Venue> _venues = new Dictionary<string, Venue>();
+        private readonly Dictionary<Guid, Venue> _venues = 
+            new Dictionary<Guid, Venue>();
 
-        public Venue GetByName(string name)
+        public Venue GetById(Guid id)
         {
-            _venues.TryGetValue(name, out var venue);
+            _venues.TryGetValue(id, out var venue);
             return venue;
         }
 
         public void Save(Venue venue)
         {
-            _venues[venue.Name] = venue;
+            _venues[venue.Id] = venue;
         }
 
         public IEnumerable<Venue> GetAll()

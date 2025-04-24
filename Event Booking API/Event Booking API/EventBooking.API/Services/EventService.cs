@@ -1,6 +1,7 @@
 ﻿using System;
 using Lima.EventBooking.Domain.Entities;
 using Lima.EventBooking.Infrastructure.Repositories;
+using Lima.EventBooking.Domain.Aggregates;
 
 namespace Lima.EventBooking.API.Services
 {
@@ -17,28 +18,27 @@ namespace Lima.EventBooking.API.Services
         public void BookEvent(Guid eventId, Attendee attendee)
         {
             var eventBooking = _eventRepository.GetById(eventId);
-            eventBooking.AddAttendee(attendee);
-            _eventRepository.Save(eventBooking);
+            var eventAggregate = new EventAggregate(eventBooking);
+            eventAggregate.AddAttendee(attendee);
+            _eventRepository.Save(eventAggregate.Event);
         }
 
         public Event GetEventById(Guid eventId)
         {
             var eventBooking = _eventRepository.GetById(eventId);
-            Console.WriteLine("GetEventById called for ID: " + eventId);
             return eventBooking;
         }
 
         public void CreateEvent(Event eventBooking)
         {
             eventBooking.Id = Guid.NewGuid();
-            _eventRepository.Save(eventBooking);
-            Console.WriteLine("CreateEvent called for event: " + eventBooking.Id);
+            var eventAggregate = new EventAggregate(eventBooking);
+            _eventRepository.Save(eventAggregate.Event);
         }
 
         public IEnumerable<Event> GetAllEvents()
         {
             var events = _eventRepository.GetAll();
-            Console.WriteLine("GetAllEvents called. Number of events: " + events.Count());
             return events;
         }
     }

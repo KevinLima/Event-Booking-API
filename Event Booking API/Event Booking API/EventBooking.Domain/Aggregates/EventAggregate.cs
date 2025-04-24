@@ -1,17 +1,25 @@
 ﻿using Lima.EventBooking.Domain.Entities;
 
-public class EventAggregate
+namespace Lima.EventBooking.Domain.Aggregates
 {
-    public Event Event { get; private set; }
-
-    public EventAggregate(Event eventBooking)
+    public class EventAggregate
     {
-        Event = eventBooking;
-    }
+        private const int MaxAttendees = 1000;
+        public Event Event { get; private set; }
 
-    public void AddAttendee(Attendee attendee)
-    {
-        Event.Attendees.Add(attendee);
+        public EventAggregate(Event eventBooking)
+        {
+            Event = eventBooking;
+        }
+
+        public void AddAttendee(Attendee attendee)
+        {
+            if (Event.Attendees.Count >= MaxAttendees)
+            {
+                throw new InvalidOperationException(
+                    "Cannot add attendee, maximum amount has been reached");
+            }
+            Event.Attendees.Add(attendee);
+        }
     }
 }
-

@@ -60,7 +60,6 @@ using (var scope = app.Services.CreateScope())
 
     venueService.CreateVenue(dummyVenue);
     eventService.CreateEvent(dummyEvent);
-    Console.WriteLine("Dummy event created: " + dummyEvent.Id);
 }
 
 app.Run();
