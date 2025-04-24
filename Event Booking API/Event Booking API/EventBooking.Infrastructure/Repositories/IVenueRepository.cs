@@ -4,7 +4,8 @@ namespace Lima.EventBooking.Infrastructure.Repositories
 {
     public interface IVenueRepository
     {
-        Venue GetById(Guid id);
+        Venue GetByName(string name);
         void Save(Venue venue);
+        IEnumerable<Venue> GetAll();
     }
 }

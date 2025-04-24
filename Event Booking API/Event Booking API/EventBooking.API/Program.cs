@@ -12,7 +12,9 @@ builder.Services.AddSwaggerGen();
 
 // Register your repositories and services
 builder.Services.AddSingleton<IEventRepository, EventRepository>();
+builder.Services.AddSingleton<IVenueRepository, VenueRepository>();
 builder.Services.AddScoped<EventService>();
+builder.Services.AddScoped<VenueService>();
 
 var app = builder.Build();
 
@@ -33,18 +35,30 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var eventService = scope.ServiceProvider.GetRequiredService<EventService>();
+    var venueService = scope.ServiceProvider.GetRequiredService<VenueService>();
+
+    var dummyVenue = new Venue
+    {
+        Name = "Grote zaal",
+        Location = "Capgemini HQ"
+    };
+
     var dummyEvent = new Event
     {
         Id = Guid.NewGuid(),
-        Name = "Sample Event",
+        Name = "Young Professional Networking",
         Date = new EventDate(DateTime.Now.AddDays(10)),
-        Venue = new Venue { Name = "Sample Venue", Location = "Sample Location" },
+        Venue = dummyVenue,
         Attendees = new List<Attendee>
         {
-            new Attendee { Id = Guid.NewGuid(), Name = "John Doe", Ticket = new TicketType("VIP") },
-            new Attendee { Id = Guid.NewGuid(), Name = "Jane Smith", Ticket = new TicketType("Regular") }
+            new Attendee { Id = Guid.NewGuid(), Name = "John Doe", 
+                Ticket = new TicketType("VIP") },
+            new Attendee { Id = Guid.NewGuid(), Name = "Jane Smith", 
+                Ticket = new TicketType("Regular") }
         }
     };
+
+    venueService.CreateVenue(dummyVenue);
     eventService.CreateEvent(dummyEvent);
     Console.WriteLine("Dummy event created: " + dummyEvent.Id);
 }
