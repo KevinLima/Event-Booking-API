@@ -29,7 +29,8 @@ namespace Lima.EventBooking.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAttendee([FromBody] AttendeeDTO attendeeDTO)
+        public IActionResult CreateAttendee(
+            [FromBody] AttendeeDTO attendeeDTO)
         {
             try
             {
