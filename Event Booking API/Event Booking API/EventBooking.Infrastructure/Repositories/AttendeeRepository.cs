@@ -1,5 +1,6 @@
 ﻿using Event_Booking_API.EventBooking.Domain.Aggregates;
 using Lima.EventBooking.Domain.Entities;
+using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
 
 namespace Event_Booking_API.EventBooking.Infrastructure.Repositories
 {
@@ -19,7 +20,6 @@ namespace Event_Booking_API.EventBooking.Infrastructure.Repositories
         {
             _attendees[attendee.Id] = attendee;
         }
-
         public IEnumerable<Attendee> GetAll() 
         {
             return _attendees.Values;

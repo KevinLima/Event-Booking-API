@@ -1,4 +1,5 @@
 ﻿using Lima.EventBooking.Domain.Entities;
+using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 

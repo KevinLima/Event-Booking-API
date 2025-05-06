@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 using Lima.EventBooking.Domain.ValueObjects;
-using Lima.EventBooking.Infrastructure.Repositories;
+using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
 
 namespace EventBooking.Tests.Controllers
 {

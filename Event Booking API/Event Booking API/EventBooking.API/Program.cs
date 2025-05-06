@@ -4,6 +4,7 @@ using Lima.EventBooking.Domain.ValueObjects;
 using Lima.EventBooking.API.Services;
 using Event_Booking_API.EventBooking.Infrastructure.Repositories;
 using Event_Booking_API.EventBooking.API.Services;
+using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

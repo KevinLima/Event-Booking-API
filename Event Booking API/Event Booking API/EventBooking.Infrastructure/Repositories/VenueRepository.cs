@@ -1,5 +1,6 @@
 ﻿using System.Xml.Linq;
 using Lima.EventBooking.Domain.Entities;
+using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
 
 namespace Lima.EventBooking.Infrastructure.Repositories
 {

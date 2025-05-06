@@ -13,11 +13,20 @@ namespace Lima.EventBooking.API.Controllers
     {
         private readonly EventService _eventService;
 
+        /// <summary>
+        /// Injectable service for this controllers.
+        /// </summary>
         public EventController(EventService eventService)
         {
             _eventService = eventService;
         }
 
+        /// <summary>
+        /// Add an attendee to an event. 
+        /// </summary>
+        /// <param name="eventId">The event to have a new attendee.</param>
+        /// <param name="attendee">The attendee to be added to the event.</param>
+        /// <returns>A <see cref="ObjectResult"/> and a message.</returns>
         [HttpPost("{eventId}/attendees")]
         public IActionResult BookEvent(Guid eventId, [FromBody] Attendee attendee)
         {
@@ -32,6 +41,11 @@ namespace Lima.EventBooking.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Get an event.
+        /// </summary>
+        /// <param name="eventId">The GUID id of the event.</param>
+        /// <returns>A <see cref="ObjectResult"/> and the event if it was found.</returns>
         [HttpGet("{eventId}")]
         public IActionResult GetEvent(Guid eventId)
         {
@@ -43,6 +57,11 @@ namespace Lima.EventBooking.API.Controllers
             return Ok(eventBooking);
         }
 
+        /// <summary>
+        /// Creates a event.
+        /// </summary>
+        /// <param name="eventDto">The event to be created.</param>
+        /// <returns>A <see cref="ObjectResult"/> and the event if it was created.</returns>
         [HttpPost]
         public IActionResult CreateEvent([FromBody] EventDTO eventDto)
         {
@@ -80,6 +99,10 @@ namespace Lima.EventBooking.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Get all events.
+        /// </summary>
+        /// <returns>A <see cref="ObjectResult"/> and a list of events.</returns>
         [HttpGet]
         public IActionResult GetAllEvents()
         {

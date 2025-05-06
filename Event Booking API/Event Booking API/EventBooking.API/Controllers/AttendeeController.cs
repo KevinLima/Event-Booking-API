@@ -12,11 +12,20 @@ namespace Lima.EventBooking.API.Controllers
     {
         private readonly AttendeeService _attendeeService;
 
+        /// <summary>
+        /// Injectable service for this controllers.
+        /// </summary>
+        /// <param name="attendeeService">The service that wil be injected.</param>
         public AttendeeController(AttendeeService attendeeService) 
         { 
             _attendeeService = attendeeService;
         }
 
+        /// <summary>
+        /// Gets the attendee associated with the id. 
+        /// </summary>
+        /// <param name="attendeeId">The id of the attendee.</param>
+        /// <returns>A <see cref="ObjectResult"/>, and the attendee if it was found.</returns>
         [HttpGet("{attendeeId}")]
         public IActionResult GetAttendee(Guid attendeeId) 
         {
@@ -28,6 +37,11 @@ namespace Lima.EventBooking.API.Controllers
             return Ok(attendee);
         }
 
+        /// <summary>
+        /// Create a new attendee
+        /// </summary>
+        /// <param name="attendeeDTO">The DTO of the new Attendee</param>
+        /// <returns>A object result, and the attendee if it was created.</returns>
         [HttpPost]
         public IActionResult CreateAttendee(
             [FromBody] AttendeeDTO attendeeDTO)
@@ -52,6 +66,10 @@ namespace Lima.EventBooking.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets all attendees.
+        /// </summary>
+        /// <returns>A <see cref="ObjectResult"/> and a list of attendees.</returns>
         [HttpGet]
         public IActionResult GetAllAttendees()
         {

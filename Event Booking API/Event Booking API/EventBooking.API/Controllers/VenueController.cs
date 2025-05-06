@@ -11,11 +11,20 @@ namespace Lima.EventBooking.API.Controllers
     {
         private readonly VenueService _venueService;
 
+        /// <summary>
+        /// Injectable service for this controllers.
+        /// </summary>
+        /// <param name="venueService">The service that wil be injected.</param>
         public VenueController(VenueService venueService)
         {
             _venueService = venueService;
         }
 
+        /// <summary>
+        /// Gets a venue by its id
+        /// </summary>
+        /// <param name="venueId">The GUID id if the venue</param>
+        /// <returns>A <see cref="ObjectResult"/>, and the venue if it was found.</returns>
         [HttpGet("{venueId}")]
         public IActionResult GetVenue(Guid venueId) 
         {
@@ -27,6 +36,10 @@ namespace Lima.EventBooking.API.Controllers
             return Ok(venue);
         }
 
+        /// <summary>
+        /// Gets all venues.
+        /// </summary>
+        /// <returns>A <see cref="ObjectResult"/> and a list of venues.</returns>
         [HttpGet]
         public IActionResult GetAllVenues()
         {
@@ -42,6 +55,11 @@ namespace Lima.EventBooking.API.Controllers
             return Ok(venueDTOs);   
         }
 
+        /// <summary>
+        /// Create a new venue
+        /// </summary>
+        /// <param name="venueDTO">The DTO of the new venue</param>
+        /// <returns>A object result, and the venue if it was created.</returns>
         [HttpPost]
         public IActionResult CreateVenue([FromBody] VenueDTO venueDTO)
         {
