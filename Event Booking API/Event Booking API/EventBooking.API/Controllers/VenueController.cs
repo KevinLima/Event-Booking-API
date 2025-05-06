@@ -65,12 +65,7 @@ namespace Lima.EventBooking.API.Controllers
         {
             try
             {
-                var venue = new Venue
-                {
-                    Id = Guid.NewGuid(),
-                    Name = venueDTO.Name,
-                    Location = venueDTO.Location
-                };
+                var venue = venueDTO.Venue();
 
                 _venueService.CreateVenue(venue);
                 return Ok(new { 

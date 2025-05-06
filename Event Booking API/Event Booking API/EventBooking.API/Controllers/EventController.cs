@@ -67,26 +67,7 @@ namespace Lima.EventBooking.API.Controllers
         {
             try
             {
-                var eventBooking = new Event
-                {
-                    Id = Guid.NewGuid(),
-                    Name = eventDto.Name,
-                    Date = new EventDate(eventDto.Date),
-                    Venue = new Venue
-                    {
-                        Id = Guid.NewGuid(),
-                        Name = eventDto.Venue.Name,
-                        Location = eventDto.Venue.Location,
-                    },
-                    Attendees = eventDto.Attendees.Select(
-                        a => new Attendee
-                        {
-                            Id = a.Id,
-                            Name = a.Name,
-                            Ticket = new TicketType(
-                                a.TicketType)
-                        }).ToList()
-                };
+                var eventBooking = eventDto.Event();
 
                 _eventService.CreateEvent(eventBooking);
                 return Ok(new { 

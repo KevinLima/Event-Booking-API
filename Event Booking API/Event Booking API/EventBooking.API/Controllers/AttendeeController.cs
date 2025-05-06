@@ -48,12 +48,7 @@ namespace Lima.EventBooking.API.Controllers
         {
             try
             {
-                var attendee = new Attendee
-                {
-                    Id = attendeeDTO.Id,
-                    Name = attendeeDTO.Name,
-                    Ticket = new TicketType(attendeeDTO.TicketType)
-                };
+                var attendee = attendeeDTO.Attendee();
                 _attendeeService.CreateAttendee(attendee);
                 return Ok(new {
                     message = "Attendee created successfully",
