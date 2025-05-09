@@ -5,6 +5,7 @@ using Lima.EventBooking.API.Services;
 using Event_Booking_API.EventBooking.Infrastructure.Repositories;
 using Event_Booking_API.EventBooking.API.Services;
 using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
+using Lima.EventBooking.API.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +19,9 @@ builder.Services.AddSingleton<IEventRepository, EventRepository>();
 builder.Services.AddSingleton<IVenueRepository, VenueRepository>();
 builder.Services.AddSingleton<IAttendeeRepository, AttendeeRepository>();
 
-builder.Services.AddScoped<EventService>();
-builder.Services.AddScoped<VenueService>();
-builder.Services.AddScoped<AttendeeService>();
+builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IVenueService, VenueService>();
+builder.Services.AddScoped<IAttendeeService, AttendeeService>();
 
 var app = builder.Build();
 
@@ -40,9 +41,9 @@ app.MapControllers();
 // Initialize scope
 using (var scope = app.Services.CreateScope())
 {
-    var eventService = scope.ServiceProvider.GetRequiredService<EventService>();
-    var venueService = scope.ServiceProvider.GetRequiredService<VenueService>();
-    var attendeeService = scope.ServiceProvider.GetRequiredService<AttendeeService>();
+    var eventService = scope.ServiceProvider.GetRequiredService<IEventService>();
+    var venueService = scope.ServiceProvider.GetRequiredService<IVenueService>();
+    var attendeeService = scope.ServiceProvider.GetRequiredService<IAttendeeService>();
 
     var dummyVenue = new Venue
     {

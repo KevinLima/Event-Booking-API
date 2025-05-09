@@ -1,7 +1,5 @@
-﻿using Event_Booking_API.EventBooking.API.Services;
-using Lima.EventBooking.API.DTOs;
-using Lima.EventBooking.Domain.Entities;
-using Lima.EventBooking.Domain.ValueObjects;
+﻿using Lima.EventBooking.API.DTOs;
+using Lima.EventBooking.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lima.EventBooking.API.Controllers
@@ -10,13 +8,13 @@ namespace Lima.EventBooking.API.Controllers
     [Route("api/[controller]")]
     public class AttendeeController : Controller
     {
-        private readonly AttendeeService _attendeeService;
+        private readonly IAttendeeService _attendeeService;
 
         /// <summary>
         /// Injectable service for this controllers.
         /// </summary>
         /// <param name="attendeeService">The service that wil be injected.</param>
-        public AttendeeController(AttendeeService attendeeService) 
+        public AttendeeController(IAttendeeService attendeeService) 
         { 
             _attendeeService = attendeeService;
         }

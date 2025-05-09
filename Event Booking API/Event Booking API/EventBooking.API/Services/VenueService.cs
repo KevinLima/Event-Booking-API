@@ -1,10 +1,11 @@
 ﻿using Lima.EventBooking.Domain.Entities;
 using Lima.EventBooking.Domain.Aggregates;
 using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
+using Lima.EventBooking.API.Services.Interfaces;
 
 namespace Lima.EventBooking.API.Services
 {
-    public class VenueService
+    public class VenueService: IVenueService
     {
         private IVenueRepository _venueRepository;
 
@@ -17,7 +18,6 @@ namespace Lima.EventBooking.API.Services
             _venueRepository = venueRepository;
         }
 
-        /// <inheritdoc cref="IVenueRepository.Save(Venue)" />
         public void CreateVenue(Venue venue)
         {
             venue.Id = Guid.NewGuid();
@@ -25,16 +25,14 @@ namespace Lima.EventBooking.API.Services
             _venueRepository.Save(venueAggregate.Venue);
         }
 
-        /// <inheritdoc cref="IVenueRepository.GetAll" />
-        public IEnumerable<Venue> GetAllVenues() 
-        { 
-            return _venueRepository.GetAll();
-        }
-
-        /// <inheritdoc cref="IVenueRepository.GetById(Guid)" />
         public Venue GetVenueById(Guid id)
         {
            return _venueRepository.GetById(id);
+        }
+
+        public IEnumerable<Venue> GetAllVenues()
+        {
+            return _venueRepository.GetAll();
         }
     }
 }

@@ -1,10 +1,11 @@
 ﻿using Event_Booking_API.EventBooking.Domain.Aggregates;
+using Lima.EventBooking.API.Services.Interfaces;
 using Lima.EventBooking.Domain.Entities;
 using Lima.EventBooking.Infrastructure.Repositories.Interfaces;
 
 namespace Event_Booking_API.EventBooking.API.Services
 {
-    public class AttendeeService
+    public class AttendeeService: IAttendeeService
     {
         private readonly IAttendeeRepository _attendeeRepository;
 
@@ -17,20 +18,17 @@ namespace Event_Booking_API.EventBooking.API.Services
             _attendeeRepository = attendeeRepository;
         }
 
-        /// <inheritdoc cref="IAttendeeRepository.GetById(Guid)" />
         public Attendee GetAttendeeById(Guid id) 
         {
             var attendee = _attendeeRepository.GetById(id);
             return attendee;
         }
 
-        /// <inheritdoc cref="IAttendeeRepository.GetAll()" />
         public IEnumerable<Attendee> GetAllAttendees()
         {
             return _attendeeRepository.GetAll();
         }
 
-        /// <inheritdoc cref="IAttendeeRepository.Save(Attendee)" />
         public void CreateAttendee(Attendee attendee)
         {
             attendee.Id = Guid.NewGuid();
